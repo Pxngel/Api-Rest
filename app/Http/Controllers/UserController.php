@@ -26,12 +26,11 @@ class UserController extends Controller
 
     public function register (Request $request){
 
-        $json = $request->input('json',null);
-        $params = json_decode ($json);
-        $params_array = json_decode ($json,true);
-      
-        if(!empty($params) && !empty($params_array)){
-        $params_array = array_map('trim',$params_array);
+        $json = $request->all();
+
+        $json = array_map('trim',$json);
+          
+        $params_array = $json;
 
         $validate  = \Validator::make($params_array,[
             'NUA' => 'required|unique:Paciente',
@@ -60,7 +59,6 @@ class UserController extends Controller
                'Campus' => 'required',
                'Division_Id' => 'required',
                'PE_Id' => 'required',
-               'Informacion' => 'required',
                'Recomendaciones' => 'required',
                'Correo' => 'email|unique:Paciente',
                'Contrasena' => 'required',
@@ -120,17 +118,7 @@ class UserController extends Controller
                 'message' => ' usuario creado exitosamente'
             );
             }
-        }else{
 
-
-        $data = array(
-            'status' => 'error',
-            'code' => 404,
-            'message' => 'Datos Incorrectos',
-
-        );
-
-    }
         return response()->json($data,$data['code']);
     }
 
@@ -269,6 +257,13 @@ class UserController extends Controller
     public function upload (Request $request){
 
 
+        $data = array(
+            'status' => 'error',
+            'code' => 400,
+            'message' => 'El usuario no se ha podido identificar',
+        );
 
+
+        return response()->json($data,$data['code']);
     }
 }

@@ -19,7 +19,15 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        'http://sitioxy152.grunibajio.com/*',
-        
+        '/division',
+        '/pe',
+        '/user',
+        '/division/*',
+        '/pe/*',
+        '/user/*',
+        '/contacto',
+        '/contacto/*',
+
+
     ];
 }
